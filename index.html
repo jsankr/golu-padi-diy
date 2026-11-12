@@ -1,0 +1,237 @@
+<title>Golu Padi Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+/* Layout: drafting-table page. One large 3D viewport with a control rail beside it on wide screens, below it on phones. */
+:root{
+  --paper:#e7eaed; --panel:#f3f5f6; --ink:#17232c; --muted:#5c6b76; --rule:#c5ccd2;
+  --ply:#c8873a; --ply-ink:#8a5415; --on-ply:#1b1206; --sheet:#efe6d3;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#12181d; --panel:#1a232a; --ink:#e4e9ec; --muted:#93a1ab; --rule:#2d3a43;
+  --ply:#e0a35a; --ply-ink:#e0a35a; --sheet:#3b342a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#12181d; --panel:#1a232a; --ink:#e4e9ec; --muted:#93a1ab; --rule:#2d3a43;
+  --ply:#e0a35a; --ply-ink:#e0a35a; --sheet:#3b342a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:20px 32px}
+.wrap{max-width:1220px;margin:0 auto;display:grid;gap:16px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 24px;border-bottom:1px solid var(--rule);padding-bottom:12px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,4.5vw,38px);margin:0;letter-spacing:-.01em;text-wrap:balance}
+.sub{font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.main{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:960px){.main{grid-template-columns:minmax(0,1fr) 320px}}
+#stage{position:relative;height:min(64vh,640px);min-height:360px;background:var(--panel);border:1px solid var(--rule);overflow:hidden;touch-action:none}
+#stage canvas{display:block;width:100%;height:100%}
+.hint{position:absolute;left:12px;bottom:10px;font-family:var(--f-mono);font-size:11px;color:var(--muted);pointer-events:none}
+.views{position:absolute;right:10px;top:10px;display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+button{font:inherit;color:inherit}
+.views button{font-family:var(--f-mono);font-size:11px;padding:5px 9px;background:var(--paper);border:1px solid var(--rule);cursor:pointer}
+.views button:hover,.views button:focus-visible,.btn:hover,.btn:focus-visible{border-color:var(--ply);outline:none}
+aside{display:grid;gap:14px;align-content:start;min-width:0}
+.box{background:var(--panel);border:1px solid var(--rule);padding:14px;display:grid;gap:10px}
+.box h2{font-family:var(--f-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--rule)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label,.seg button{padding:8px;text-align:center;cursor:pointer;font-family:var(--f-mono);font-size:13px;background:none;border:0}
+.seg input:checked+label,.seg button[aria-pressed="true"]{background:var(--ply);color:var(--on-ply)}
+.seg input:focus-visible+label,.seg button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.row label{cursor:pointer}
+input[type=range]{width:100%;accent-color:var(--ply)}
+input[type=checkbox]{accent-color:var(--ply);width:16px;height:16px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{padding:8px 10px;border:1px solid var(--rule);background:var(--paper);cursor:pointer;font-family:var(--f-mono);font-size:12px}
+.btn.primary{background:var(--ply);border-color:var(--ply);color:var(--on-ply)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips .btn{padding:5px 8px;font-size:11px}
+#phase{font-family:var(--f-display);font-weight:500;font-size:16px;min-height:2.6em;text-wrap:balance;margin:0}
+dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14px}
+dt{color:var(--muted)}
+dd{margin:0;text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.note{font-size:13px;color:var(--muted);margin:0}
+.note b{color:var(--ply-ink);font-weight:500}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;font-size:13px;margin:0;padding:0;list-style:none}
+.legend i{display:inline-block;width:11px;height:11px;margin-right:7px;border:1px solid rgba(0,0,0,.35);vertical-align:-1px}
+.seg3{grid-template-columns:1fr 1fr 1fr}
+.seg3 button{font-size:12px;padding:8px 4px}
+#cutview{display:grid;gap:14px;background:var(--panel);border:1px solid var(--rule);padding:16px}
+#cutview h2{font-family:var(--f-display);font-size:22px;margin:0;color:var(--ink);letter-spacing:0;text-transform:none}
+#cutview h2 span{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-left:10px;font-weight:400}
+#cutview h3{font-family:var(--f-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 0 0}
+.cv-head{display:grid;gap:10px}
+#cv-chips{display:flex;flex-wrap:wrap;gap:6px}
+#cv-chips .btn{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;font-size:11px}
+#cv-chips .btn i{width:10px;height:10px;border:1px solid rgba(0,0,0,.35)}
+#cv-chips .btn[aria-pressed="true"]{border-color:var(--ply);box-shadow:inset 0 0 0 1px var(--ply)}
+.cv-main{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:1100px){.cv-main{grid-template-columns:minmax(0,1fr) 300px}}
+.cv-sheetwrap{overflow-x:auto;min-width:0}
+.cv-side{display:grid;gap:8px;align-content:start;min-width:0}
+#cv-svg{display:block;width:100%;min-width:680px;height:auto}
+#cv-svg .sheet{fill:var(--sheet);stroke:var(--ink);stroke-width:1.5}
+#cv-svg .pc{stroke:#2a1c08;stroke-width:1.2;cursor:pointer}
+#cv-svg .pc:hover{filter:brightness(1.12)}
+#cv-svg .pc.sel{stroke:#ff6a00;stroke-width:3.5}
+#cv-svg .pl{pointer-events:none;font-family:var(--f-mono)}
+#cv-svg .cut{stroke:#d1362b;stroke-width:1.4;stroke-dasharray:7 4;pointer-events:none}
+#cv-svg .bdg{fill:#d1362b;pointer-events:none}
+#cv-svg .bdt{fill:#fff;font-size:10px;font-family:var(--f-mono);font-weight:600;pointer-events:none}
+#cv-svg .ax,#cv-svg .off{fill:var(--muted);font-family:var(--f-mono);font-size:11px;pointer-events:none}
+#cv-svg .tick{stroke:var(--muted)}
+.cv-card{font-size:14px;border:1px solid var(--rule);padding:10px;background:var(--paper);line-height:1.55;overflow-wrap:anywhere}
+.vx{font-family:var(--f-mono);font-size:12px;margin-top:6px;color:var(--muted)}
+.lnk{background:none;border:0;padding:0;color:var(--ply-ink);text-decoration:underline;cursor:pointer;font:inherit}
+#cv-cuts{margin:0;padding-left:24px;font-size:13px;display:grid;gap:4px}
+#cv-cuts li::marker{color:#d1362b;font-weight:600}
+#cv-cuts .pf{list-style:none;margin-left:-24px;color:var(--muted)}
+.cv-tables{display:grid;gap:8px;min-width:0}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{border-bottom:1px solid var(--rule);padding:5px 8px;text-align:left;white-space:nowrap}
+th{font-family:var(--f-mono);font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+tr[data-pid]{cursor:pointer}
+tr.sel{background:rgba(255,106,0,.2)}
+tr.tot td{font-weight:600}
+ul.plain{margin:0;padding-left:20px;font-size:13px;display:grid;gap:3px}
+.big{margin:0;font-size:15px}
+.big b{font-family:var(--f-display);font-size:34px;line-height:1;margin-right:6px}
+[hidden]{display:none!important}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Golu Padi</h1>
+    <span class="sub">9 steps · 6 ft × 1 ft treads · plywood knockdown</span>
+  </header>
+  <div class="main">
+    <div id="stage">
+      <div class="views" role="group" aria-label="Camera views">
+        <button data-v="iso">Iso</button><button data-v="front">Front</button><button data-v="side">Side</button><button data-v="back">Rear</button><button data-v="top">Top</button><button data-v="wide">Wide</button>
+      </div>
+      <div class="hint">Drag to orbit · scroll or pinch to zoom</div>
+    </div>
+    <aside>
+      <div class="box">
+        <h2>Mode</h2>
+        <div class="seg seg3" role="group" aria-label="Mode">
+          <button id="m-explode" aria-pressed="true">Exploded</button>
+          <button id="m-pack" aria-pressed="false">Fold &amp; stack</button>
+          <button id="m-cut" aria-pressed="false">Cut plan</button>
+        </div>
+        <div class="seg" role="radiogroup" aria-label="Riser height">
+          <input type="radio" name="rise" id="r5" value="5"><label for="r5">5 in riser</label>
+          <input type="radio" name="rise" id="r6" value="6" checked><label for="r6">6 in riser</label>
+        </div>
+      </div>
+
+      <div class="box" id="g-explode">
+        <h2>Every piece apart</h2>
+        <div class="row"><label for="ex">Explode</label><span id="exv" style="font-family:var(--f-mono);font-size:13px">0%</span></div>
+        <input type="range" id="ex" min="0" max="100" value="0">
+        <ul class="legend">
+          <li><i style="background:#dcbd8c"></i>Treads (9)</li>
+          <li><i style="background:#c08a4c"></i>Side plates (18)</li>
+          <li><i style="background:#a97439"></i>Spacers (18)</li>
+          <li><i style="background:#6b4a22"></i>Dowels (54)</li>
+          <li><i style="background:#8e6330"></i>Outrigger feet (9)</li>
+          <li><i style="background:#3f8f8a"></i>Hinged links (12)</li>
+          <li><i style="background:#e3b341"></i>Pivot bolts (24)</li>
+          <li><i style="background:#8d98a1"></i>Pivot tabs (24)</li>
+          <li><i style="background:#8cc2b4"></i>Back panels (3)</li>
+        </ul>
+      </div>
+
+      <div class="box" id="g-pack" hidden>
+        <h2>Fold, stack, unstack</h2>
+        <p id="phase"></p>
+        <input type="range" id="pp" min="0" max="1000" value="0" aria-label="Pack progress">
+        <div class="btns">
+          <button class="btn primary" id="play-pack">▶ Pack away</button>
+          <button class="btn" id="play-unpack">◀ Unpack</button>
+        </div>
+        <div class="chips" aria-label="Jump to step">
+          <button class="btn" data-p="0">Set up</button>
+          <button class="btn" data-p="0.36">Treads off</button>
+          <button class="btn" data-p="0.52">Panels out</button>
+          <button class="btn" data-p="0.76">Folded</button>
+          <button class="btn" data-p="1">Packed</button>
+        </div>
+      </div>
+
+      <div class="box" id="g-cut" hidden>
+        <h2>Plywood cut plan</h2>
+        <p class="big"><b id="cut-total">10</b>sheets of 8 × 4 ft<br><span id="cut-split" class="note"></span></p>
+        <div class="row"><label for="ex2">Explode</label><span id="exv2" style="font-family:var(--f-mono);font-size:13px">0%</span></div>
+        <input type="range" id="ex2" min="0" max="100" value="0">
+        <div class="row"><label for="cb-sheet">Colour model by sheet</label><input type="checkbox" id="cb-sheet" checked></div>
+        <p class="note">Click any piece in the 3D model or on a sheet to find it in both. Sheet colours match the sheet buttons under the model.</p>
+      </div>
+
+      <div class="box">
+        <h2>Show</h2>
+        <div class="row"><label for="tg-t">Treads</label><input type="checkbox" id="tg-t" checked></div>
+        <div class="row"><label for="tg-b">Back panels</label><input type="checkbox" id="tg-b" checked></div>
+        <div class="row"><label for="tg-l">Hinged links and bolts</label><input type="checkbox" id="tg-l" checked></div>
+        <div class="row"><label for="tg-d">Sample dolls</label><input type="checkbox" id="tg-d" checked></div>
+      </div>
+
+      <div class="box">
+        <h2>Dimensions</h2>
+        <dl>
+          <dt>Footprint</dt><dd>9 ft × 6 ft</dd>
+          <dt>Top step height</dt><dd id="d-h"></dd>
+          <dt>Tread</dt><dd>72 × 11⅞ × ¾ in</dd>
+          <dt>Folded block</dt><dd>60 × 23 in</dd>
+          <dt>Tread stack</dt><dd>72 × 12 × 6¾ in</dd>
+        </dl>
+        <p class="note">The three side walls of each block hang on <b>hinged links</b> bolted to steel tabs. With the back panel out, the walls swing together like a parallelogram. Treads are cut ⅛ in narrow so four fit across a sheet with the saw kerf.</p>
+      </div>
+    </aside>
+  </div>
+
+  <section id="cutview" hidden aria-label="Plywood cut plan">
+    <div class="cv-head">
+      <div>
+        <h2>Plywood cut plan <span id="cv-sum"></span></h2>
+        <p id="cv-sub" class="note"></p>
+      </div>
+      <div id="cv-chips" aria-label="Sheets"></div>
+    </div>
+    <div class="cv-main">
+      <div class="cv-sheetwrap"><svg id="cv-svg" role="img" aria-label="Cut layout of the selected sheet"></svg></div>
+      <div class="cv-side">
+        <h3>Selected piece</h3>
+        <div id="cv-sel" class="cv-card"></div>
+        <h3>Cut order on this sheet</h3>
+        <ol id="cv-cuts"></ol>
+        <p class="note">Red dashed lines are saw cuts, drawn on the centre of the ⅛ in kerf. Make them in the order shown. X runs along the 96 in length, Y along the 48 in width, from the bottom left corner.</p>
+      </div>
+    </div>
+    <div class="cv-tables">
+      <h3>Pieces on this sheet</h3>
+      <div class="scroll"><table id="cv-tab"></table></div>
+      <h3>All pieces</h3>
+      <div class="scroll"><table id="cv-tot"></table></div>
+      <h3>Hardware, not cut from sheets (estimates)</h3>
+      <ul id="cv-hw" class="plain">
+        <li>54 hardwood dowels, 12 mm × 28 mm, three per wall plate</li>
+        <li>24 steel pivot tabs, about 45 × 35 mm, screwed to the wall plates</li>
+        <li>24 pivot bolts M8 × 70 mm with wing nuts, plus 48 washers. These are the bolts you remove to release the fold</li>
+        <li>18 bolts M8 × 40 mm with T-nuts for the 9 feet, two per foot</li>
+        <li>18 M6 × 40 mm bolts with threaded inserts to hold the back panels, two per wall</li>
+        <li>500 ml waterproof PVA glue and about 200 wood screws, 40 mm</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="golu-model.js"></script>
+<script src="golu-cuts.js"></script>
+<script src="golu-cutui.js"></script>
+<script src="golu-anim.js"></script>
