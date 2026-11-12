@@ -8,6 +8,32 @@ A foldable, stackable 9-step plywood Golu Padi (each step 6 ft long x 1 ft wide)
 - **Pack & stack**: animated fold of each 3-wall block on four-bar links, then stacking of treads, panels and blocks.
 - **Cut plan**: numbered cut lines for every 8x4 board; click a piece to highlight it in 3D.
 
+## Pictures
+
+Screenshots from the real viewer (6 in riser). Open `index.html` to rotate and play them yourself.
+
+**1. Assembled.** 9 steps, three blocks of three steps, with sample dolls.
+
+![Assembled Golu Padi](images/01-assembled.png)
+
+**2. Exploded.** Every piece pulled apart: plates, spacers, feet, hinged links, pivot tabs, back panels and treads.
+
+![Exploded view](images/02-exploded.png)
+
+**3. Unstack in reverse, stack in this order.** The fold-and-stack mode plays these stages; drag its slider to scrub.
+
+| Stage | Picture |
+|---|---|
+| Treads off and stacked | ![Treads off](images/03-pack-treads-off.png) |
+| Back panels out and laid flat | ![Panels out](images/04-pack-panels-out.png) |
+| Hinged links swinging each block's 3 walls together | ![Folding](images/05-pack-folding.png) |
+| Blocks folded | ![Folded](images/06-pack-folded.png) |
+| Packed: 3 slim blocks, 1 tread stack, 3 flat panels | ![Packed](images/07-packed.png) |
+
+**4. Cut plan.** Numbered saw cuts on each 8x4 board (sheet 1 shown).
+
+![Cut plan](images/08-cut-plan.png)
+
 ## Bill of boards
 
 | Riser height | Total 8x4 boards | 19 mm | 12 mm |
