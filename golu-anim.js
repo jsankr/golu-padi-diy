@@ -44,7 +44,7 @@
 
     GP.treads.forEach(function(t){
       var i=t.i, g=t.g;
-      g.visible=S.show.treads; t.dolls.visible=S.show.dolls&&!pack;
+      g.visible=S.show.treads; t.dolls.visible=S.show.dolls&&!pack; if(t.lab) t.lab.visible=!pack;
       if(!pack){g.position.set(0,e*(24+i*5),0); return;}
       /* all treads rise together to their own height, then fly to the stack one after another, top step first */
       var u=seg(p,.04+(9-i)*.022,.04+(9-i)*.022+.12), lift=ez(seg(p,0,.04));
@@ -94,7 +94,7 @@
     });
     $('cutview').hidden=m!=='cut';
     if(m==='pack'){S.e=0; $('ex').value=0; GP.setView('wide');}
-    else{S.p=0; if(m==='explode') GP.setView('iso');}
+    else{S.p=0; if(m==='explode'){GP.setView('iso'); GP.frameExplode(S.e/100);}}
     if(GP.cutActivate) GP.cutActivate(m==='cut');
     GP.applyState();
   };
@@ -102,7 +102,7 @@
   ['explode','pack','cut'].forEach(function(n){$('m-'+n).addEventListener('click',function(){GP.setMode(n);});});
   document.querySelectorAll('.views button').forEach(function(b){b.addEventListener('click',function(){GP.setView(b.dataset.v);});});
   document.querySelectorAll('input[name=rise]').forEach(function(r){r.addEventListener('change',function(){S.rise=+r.value;GP.build();});});
-  function onEx(ev){S.e=+ev.target.value;$('ex').value=S.e;$('ex2').value=S.e;GP.applyState();}
+  function onEx(ev){S.e=+ev.target.value;$('ex').value=S.e;$('ex2').value=S.e;GP.applyState();GP.frameExplode(S.e/100);}
   $('ex').addEventListener('input',onEx);
   $('ex2').addEventListener('input',onEx);
   $('pp').addEventListener('input',function(ev){dir=0;S.p=ev.target.value/1000;GP.applyState();});

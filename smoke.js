@@ -1,28 +1,31 @@
 /* Headless smoke test: fake THREE + DOM, run all page scripts, drive every mode, check solid-piece collisions (SAT in plan, overlap in height). */
 const fs=require('fs'), vm=require('vm');
-class V3{constructor(x=0,y=0,z=0){this.x=x;this.y=y;this.z=z;}set(x,y,z){this.x=x;this.y=y;this.z=z;return this;}copy(v){this.x=v.x;this.y=v.y;this.z=v.z;return this;}clone(){return new V3(this.x,this.y,this.z);}addScaledVector(v,s){this.x+=v.x*s;this.y+=v.y*s;this.z+=v.z*s;return this;}}
-class O3{constructor(){this.position=new V3();this.rotation={x:0,y:0,z:0};this.children=[];this.parent=null;this.visible=true;this.userData={};}
+class V3{constructor(x=0,y=0,z=0){this.x=x;this.y=y;this.z=z;}distanceTo(v){return Math.hypot(this.x-v.x,this.y-v.y,this.z-v.z);}set(x,y,z){this.x=x;this.y=y;this.z=z;return this;}copy(v){this.x=v.x;this.y=v.y;this.z=v.z;return this;}clone(){return new V3(this.x,this.y,this.z);}addScaledVector(v,s){this.x+=v.x*s;this.y+=v.y*s;this.z+=v.z*s;return this;}}
+class O3{constructor(){this.position=new V3();this.rotation={x:0,y:0,z:0,set(a,b,c){this.x=a;this.y=b;this.z=c;}};this.children=[];this.parent=null;this.visible=true;this.userData={};}
   add(c){if(c.parent)c.parent.remove(c);c.parent=this;this.children.push(c);return this;}
   remove(c){const i=this.children.indexOf(c);if(i>=0){this.children.splice(i,1);c.parent=null;}}
   traverse(f){f(this);this.children.forEach(c=>c.traverse(f));}}
 class Mesh extends O3{constructor(g,m){super();this.geometry=g;this.material=m;}}
+class Col{constructor(){}setHSL(){return this;}multiplyScalar(){return this;}}
 class Shape{constructor(){this.pts=[];}moveTo(x,y){this.pts.push([x,y]);}lineTo(x,y){this.pts.push([x,y]);}closePath(){}}
 const noop=()=>{};
 const T={Vector3:V3,Vector2:class{set(){}},Group:class extends O3{},Mesh,LineSegments:class extends O3{},Sprite:class extends O3{constructor(){super();this.scale=new V3();}},
   Shape,BoxGeometry:class{constructor(w,h,d){this.k='box';this.s=[w,h,d];}},
   ExtrudeGeometry:class{constructor(s,o){this.k='ext';this.p=s.pts;this.d=o.depth;}},
   CylinderGeometry:class{constructor(){this.k='cyl';}},ConeGeometry:class{constructor(){this.k='cone';}},SphereGeometry:class{constructor(){this.k='sph';}},PlaneGeometry:class{},
-  EdgesGeometry:class{constructor(g){this.g=g;}},MeshStandardMaterial:class{constructor(o){Object.assign(this,o);}},LineBasicMaterial:class{},ShadowMaterial:class{},SpriteMaterial:class{},
-  CanvasTexture:class{},Color:class{setHSL(){return this;}},HemisphereLight:class extends O3{},
-  DirectionalLight:class extends O3{constructor(){super();this.shadow={mapSize:{set:noop},camera:{}};}},GridHelper:class extends O3{constructor(){super();this.material={};}},
+  EdgesGeometry:class{constructor(g){this.g=g;}},MeshStandardMaterial:class{constructor(o){Object.assign(this,o);this.color=new Col();}},MeshPhysicalMaterial:class{constructor(o){Object.assign(this,o);}},MeshBasicMaterial:class{constructor(o){Object.assign(this,o);this.color=new Col();}},
+  PMREMGenerator:class{fromScene(){return {texture:{}};}dispose(){}},sRGBEncoding:1,ACESFilmicToneMapping:1,RepeatWrapping:1,BackSide:1,DoubleSide:2,LineBasicMaterial:class{},ShadowMaterial:class{},SpriteMaterial:class{},
+  CanvasTexture:class{},Color:Col,HemisphereLight:class extends O3{},
+  DirectionalLight:class extends O3{constructor(){super();this.shadow={mapSize:{set:noop},camera:{}};}},AmbientLight:class extends O3{},GridHelper:class extends O3{constructor(){super();this.material={};}},
   Scene:class extends O3{},PerspectiveCamera:class extends O3{updateProjectionMatrix(){}},
-  WebGLRenderer:class{constructor(){this.domElement=el('canvas');this.shadowMap={};}setPixelRatio(){}setSize(){}render(){}},
+  WebGLRenderer:class{constructor(){this.domElement=el('canvas');this.shadowMap={};this.capabilities={getMaxAnisotropy:()=>8};}setPixelRatio(){}setClearColor(){}setSize(){}render(){}},
   OrbitControls:class{constructor(){this.target=new V3();}update(){}},
   Raycaster:class{setFromCamera(){}intersectObjects(){return [];}},PCFSoftShadowMap:1};
+const CTX=new Proxy(function(){},{get:()=>CTX,apply:()=>CTX,set:()=>true});
 const els={};
 function el(id){return els[id]||(els[id]={id,addEventListener:noop,setAttribute:noop,innerHTML:'',textContent:'',value:'',hidden:false,checked:true,clientWidth:900,clientHeight:600,
   closest:()=>null,insertBefore:noop,firstChild:null,style:{},dataset:{},getBoundingClientRect:()=>({left:0,top:0,width:900,height:600}),
-  getContext:()=>new Proxy({},{get:()=>noop,set:()=>true}),classList:{toggle:noop}});}
+  getContext:()=>CTX,classList:{toggle:noop}});}
 global.window=global; global.THREE=T;
 global.document={getElementById:el,createElement:()=>el('c'+Math.random()),querySelectorAll:()=>[]};
 global.requestAnimationFrame=noop; global.devicePixelRatio=1; global.addEventListener=noop;

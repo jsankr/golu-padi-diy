@@ -2,37 +2,43 @@
 
 A foldable, stackable 9-step plywood Golu Padi (each step 6 ft long x 1 ft wide), with an interactive 3D viewer and a cut plan for standard 8 ft x 4 ft boards.
 
-**Open `index.html` in a browser** (needs internet for three.js from a CDN). Three modes:
+**Open `index.html` in a browser** (needs internet for three.js from a CDN). Glass interface with light and dark studio themes, a turntable mode and six camera presets. Three modes:
 
 - **Exploded view**: every piece pulled apart (plates, spacers, feet, hinged links, pivot tabs, back panels, treads).
 - **Pack & stack**: animated fold of each 3-wall block on four-bar links, then stacking of treads, panels and blocks.
 - **Cut plan**: numbered cut lines for every 8x4 board; click a piece to highlight it in 3D.
 
+![Golu Padi studio view](images/01-assembled.png)
+
 ## Pictures
 
-Screenshots from the real viewer (6 in riser). Open `index.html` to rotate and play them yourself.
+Real screenshots of the viewer, 6 in riser. The page renders with filmic tone mapping, studio image-based lighting, procedural birch plywood (grain on faces, ply layers on cut edges), brushed-steel tabs and brass pivot bolts. Open `index.html` to orbit, explode and play the fold yourself.
 
-**1. Assembled.** 9 steps, three blocks of three steps, with sample dolls.
+### Exploded: every piece apart
 
-![Assembled Golu Padi](images/01-assembled.png)
-
-**2. Exploded.** Every piece pulled apart: plates, spacers, feet, hinged links, pivot tabs, back panels and treads.
+Plates, spacers, dowels, feet, hinged links, pivot tabs and bolts, back panels and treads. The camera pulls back as the slider explodes the model.
 
 ![Exploded view](images/02-exploded.png)
 
-**3. Unstack in reverse, stack in this order.** The fold-and-stack mode plays these stages; drag its slider to scrub.
+### Unstack in reverse, stack in this order
 
-| Stage | Picture |
+| | |
 |---|---|
-| Treads off and stacked | ![Treads off](images/03-pack-treads-off.png) |
-| Back panels out and laid flat | ![Panels out](images/04-pack-panels-out.png) |
-| Hinged links swinging each block's 3 walls together | ![Folding](images/05-pack-folding.png) |
-| Blocks folded | ![Folded](images/06-pack-folded.png) |
-| Packed: 3 slim blocks, 1 tread stack, 3 flat panels | ![Packed](images/07-packed.png) |
+| **1. Treads off and stacked**<br>![Treads off](images/03-pack-treads-off.png) | **2. Back panels out, laid flat**<br>![Panels out](images/04-pack-panels-out.png) |
+| **3. Hinged links swing each block's 3 walls together**<br>![Folding](images/05-pack-folding.png) | **4. Blocks folded**<br>![Folded](images/06-pack-folded.png) |
+| **5. Packed: 3 slim blocks, 1 tread stack, 3 flat panels**<br>![Packed](images/07-packed.png) | **Cut plan in 3D: model coloured by source board**<br>![Cut 3D](images/09-cut-3d.png) |
 
-**4. Cut plan.** Numbered saw cuts on each 8x4 board (sheet 1 shown).
+### Cut plan: numbered saw cuts on each 8 × 4 board
+
+Sheet 1 shown. Click any piece on a sheet or in 3D to find it in both.
 
 ![Cut plan](images/08-cut-plan.png)
+
+### Dark studio and phone
+
+| | |
+|---|---|
+| ![Dark mode](images/10-dark.png) | <img src="images/11-mobile.png" alt="Phone layout" width="300"> |
 
 ## Bill of boards
 
