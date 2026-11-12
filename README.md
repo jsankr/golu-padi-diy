@@ -2,7 +2,7 @@
 
 A foldable, stackable 9-step plywood Golu Padi (each step 6 ft long x 1 ft wide), with an interactive 3D viewer and a cut plan for standard 8 ft x 4 ft boards.
 
-**Open `index.html` in a browser** (needs internet for three.js from a CDN). Glass interface with light and dark studio themes, a turntable mode and six camera presets. Three modes:
+**Live demo: https://jsankr.github.io/golu-padi-diy/** (or open `index.html` locally) (needs internet for three.js from a CDN). Glass interface with light and dark studio themes, a turntable mode and six camera presets. Three modes:
 
 - **Exploded view**: every piece pulled apart (plates, spacers, feet, hinged links, pivot tabs, back panels, treads).
 - **Pack & stack**: animated fold of each 3-wall block on four-bar links, then stacking of treads, panels and blocks.
