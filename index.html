@@ -176,6 +176,8 @@ footer{text-align:center;font-size:12px;color:var(--muted);padding:0 16px 32px}
   .below{padding:16px 16px 40px}
   #cutview{padding:16px}
 }
+/* the hint and the camera dock share the bottom edge; drop the hint when they would collide */
+@media (max-width:1560px){.hint{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
 </style>
 <div class="hero">
